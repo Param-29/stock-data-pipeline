@@ -37,3 +37,11 @@ For Yahoo finance
     10,000 / month
    + $0.002 each other ( for 10$ per month)
 	
+# March 13, 2023 
+
+* Pushed data-processing 1
+* Need to 
+  * See length of file generated
+  * Think about storing in Data-Lake 
+    * As Parquet?
+    * As many parquets?
