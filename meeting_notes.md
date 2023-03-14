@@ -1,7 +1,7 @@
 # Meeting notes 
 
 # March 12, 2023 
-
+(1.5 hour)
 Looking for data source to get US & India's stock data on daily, hourly and 15 min timeframes
 1. yahoo finance: not free anymore
 
@@ -38,10 +38,14 @@ For Yahoo finance
    + $0.002 each other ( for 10$ per month)
 	
 # March 13, 2023 
-
+(1 hour)
 * Pushed data-processing 1
 * Need to 
   * See length of file generated
   * Think about storing in Data-Lake 
     * As Parquet?
     * As many parquets?
+
+# March 14, 2023
+
+Notebook created, need to convert to script (1 hour)
