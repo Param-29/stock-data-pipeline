@@ -18,7 +18,7 @@ def get_and_preprocess(symbol, api_key, colmn_rename):
         # Get the close data from the response JSON
         data = response.json()['Time Series (Daily)']
         close_data = {date: float(values['4. close']) for date, values in data.items()}
-        print(f'data sanokes recieved from api {len(close_data)} for {symbol}')
+        print(f'data recieved from api {len(close_data)} for {symbol}')
         # print(close_data)
     else:
         print(f'Request failed with status code {response.status_code} for {symbol}')
@@ -55,7 +55,6 @@ def write_data_to_file(df_all, symbol, number_of_rows=400):
 
 
 if __name__=="__main__":
-    print('HERE')
     api_key = 'xD'
     colmn_rename = {
         'index': 'date',
@@ -70,10 +69,16 @@ if __name__=="__main__":
     }
     
     symbol = 'AMD'
+    filename = 'nasdaq100.log'
+    temp = open(filename,'r').read().split('\n')
+    print(f'All files listed in file: {temp}')
 
-    df_all = get_and_preprocess(symbol, api_key, colmn_rename)
+    for i in range(5):
+        symbol = temp[i]
 
-    write_data_to_file(df_all, symbol)
+        df_all = get_and_preprocess(symbol, api_key, colmn_rename)
+
+        write_data_to_file(df_all, symbol)
 
 
 
