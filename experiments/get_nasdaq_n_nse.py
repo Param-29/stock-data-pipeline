@@ -1,8 +1,8 @@
 import requests
 import pandas as pd 
-
+import os
 # Replace YOUR_API_KEY with your actual API key
-number_of_rows = 400
+# number_of_rows = 400
 
 TESTING = False
 
@@ -37,19 +37,25 @@ def get_and_preprocess(symbol, api_key, colmn_rename):
 
     return df_tmp
 
-def write_data_to_file(df_all, symbol, number_of_rows=400):
+def write_data_to_file(df, company):
+
+    min_year = min(df.date).year
+    max_year = max(df.date).year
+    for year in range (min_year, max_year+1):
+        df_year = df[df['date'].dt.year == year]
+        # include = df[df['Date'].dt.year == year]
+        print(f'{company}: {year}: {len(df_year)}')
+        path = f'data/price_n_volume/{year}/'
+        isExist = os.path.exists(path)
+        if not isExist:
+
+           # Create a new directory because it does not exist
+           os.makedirs(path)
+           print("The new directory is created!")
+
+        df_year.to_parquet(f'{path}/{company}.parquet')
+        # df_year.to_csv(f'{path}/{company}.csv')
     
-
-    df_fresh = df_all.iloc[:number_of_rows]
-    df2_old = df_all.tail(-number_of_rows)
-
-
-    print(f'Writing data about {symbol}')
-    df_all.to_parquet(f'data/all/parquet/{symbol}.parquet')
-    df2_old.to_parquet(f'data/old/parquet/{symbol}.parquet')
-    df_fresh.to_csv(f'data/new/csv/{symbol}.csv.gz')
-    if TESTING:
-        df_fresh.to_csv(f'data/new/csv/{symbol}.csv')
 
 
 
@@ -68,7 +74,7 @@ if __name__=="__main__":
         '8. split coefficient' : 'split_coefficient'
     }
     
-    symbol = 'AMD'
+    # symbol = 'AMD'
     filename = 'nasdaq100.log'
     temp = open(filename,'r').read().split('\n')
     print(f'All files listed in file: {temp}')
