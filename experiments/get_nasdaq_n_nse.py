@@ -34,6 +34,7 @@ def get_and_preprocess(symbol, api_key, colmn_rename):
     df_tmp[cols] = df_tmp[cols].apply(pd.to_numeric, errors='coerce')
     df_tmp['date'] = df_tmp['date'].apply(pd.to_datetime,format='%Y-%m-%d') 
     df_tmp['close_percent_change'] = round(df_tmp.loc[::-1].close.pct_change() * 100, 4)
+    df_tmp['adjusted_close'] = df_tmp['adjusted_close'].round(decimals=4)
     df_tmp['company'] = symbol
 
     return df_tmp
