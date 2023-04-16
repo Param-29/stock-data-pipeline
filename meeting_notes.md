@@ -49,3 +49,9 @@ For Yahoo finance
 # March 14, 2023
 
 Notebook created, need to convert to script (1 hour)
+
+# April 16 
+
+Pyspark X GCS-BQ integration 
+* https://github.com/tfayyaz/cloud-dataproc/blob/master/notebooks/python/1.2.%20BigQuery%20Storage%20%26%20Spark%20SQL%20-%20Python.ipynb
+
