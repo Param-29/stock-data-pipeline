@@ -13,6 +13,11 @@ For DE-course work
 
 ![Outlier](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Standard_deviation_diagram.svg/1920px-Standard_deviation_diagram.svg.png)
 
+## POC: APPLE:NASDAQ
+
+![](Apple_poc.png)
+Souce: experiments/POC_MODEL.ipynb
+
 # References 
 
 1. [Stats: Outlier Detection](https://www.analyticsvidhya.com/blog/2021/05/feature-engineering-how-to-detect-and-remove-outliers-with-python-code/)
