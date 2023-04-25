@@ -1,6 +1,6 @@
 # stock-data-pipeline
 
-For DE-course work
+For DE-course work; Project
 
 ## Problem of interest 
 
@@ -17,6 +17,44 @@ For DE-course work
 
 ![](Apple_poc.png)
 Souce: experiments/POC_MODEL.ipynb
+
+# Project design 
+[TBD]
+
+# Steps to Reproduce and test this repo 
+
+### Dependencies 
+
+Following are list of dependencies 
+1. Terraform (for IaC) connecting to Google Cloud 
+2. Docker to run pipeline 
+
+### Steps 
+
+1. Clone the repro 
+2. Inside `price_n_volume` folder lies our pipeline 
+
+   Create an envoirment variable storing your Google Cloud Credentials like below
+
+   ```shell
+   export GOOGLE_APPLICATION_CREDENTIALS="<path/to/your/service-account-authkeys>.json"
+   
+   # Refresh token/session, and verify authentication
+   gcloud auth application-default login
+   ```
+
+   ```bash
+   $ terraform init # <-- Enter Google Project ID whenever quried
+   $ terraform plan # <-- Enter Google Project ID whenever quried
+   $ terraform apply # <-- Enter Google Project ID whenever **quried**
+   ```
+
+   This would create
+      1. A google cloud bucket with name: `lake_price_n_volume`
+      2. A dataset with name `prod_price_n_volume`
+
+
+
 
 # References 
 

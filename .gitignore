@@ -1,3 +1,5 @@
 api_keys.txt
-*/data
+experiments/data
+price_n_volume/data/price_n_volume/historic
+price_n_volume/data/price_n_volume/recent/2022-0*
 api_key.json
