@@ -2,7 +2,7 @@
 
 For DE-course work; Project
 
-## Problem of interest 
+## Problem of interest
 
 **Was today an outlier?**
 - wrt 20_day_price_change						
@@ -18,18 +18,18 @@ For DE-course work; Project
 ![](Apple_poc.png)
 Souce: experiments/POC_MODEL.ipynb
 
-# Project design 
+# Project design
 [TBD]
 
-# Steps to Reproduce and test this repo 
+# Steps to Reproduce and test this repo
 
-### Dependencies 
+### Dependencies
 
 Following are list of dependencies 
 1. Terraform (for IaC) connecting to Google Cloud 
 2. Docker to run pipeline 
 
-### Steps 
+### Steps
 
 1. Clone the repro 
 2. Inside `price_n_volume` folder lies our pipeline 
@@ -53,10 +53,21 @@ Following are list of dependencies
       1. A google cloud bucket with name: `lake_price_n_volume`
       2. A dataset with name `prod_price_n_volume`
 
+3. Start prefect orion server for checking various logs
+   ```shell
+   prefect orion start
+   ```
+4. [DEMO] Push data available in GCS bucket using 
+
+   ```shell 
+     export GOOGLE_APPLICATION_CREDENTIALS="<path_to_gcp_creds>.json"
+     python push_to_gcs.py 
+     python bq_pipeline.py # <-- This would create 'recent_outliers' table in your dataset
+   ```
 
 
 
-# References 
+# References
 
 1. [Stats: Outlier Detection](https://www.analyticsvidhya.com/blog/2021/05/feature-engineering-how-to-detect-and-remove-outliers-with-python-code/)
 2. Alphavantage: API Key added in a git ignore file

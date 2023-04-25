@@ -5,6 +5,7 @@
 #     1. BigQuery
 #     2. GCS
 
+# "~/data-engineering-zoomcamp/week_1_basics_n_setup/1_terraform_gcp/terraform/quick-ray-375906-15748deb6a49.json"
 import os
 from google.cloud import storage
 import json 
@@ -13,19 +14,11 @@ from prefect import flow, task
 
 @task
 def get_gcs_cred_location():
-    f = open('../api_key.json')
-    try:
-        data = json.load(f)
-    except Exception as e:
-        print(f'Error: json read\n {e}')
+    location = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
+    if location == None:
+        print('Key not found; set `GOOGLE_APPLICATION_CREDENTIALS` env variable in bash')
         return "-1"
-    
-    if "gcs_creds_location" in data.keys():
-        print(f'Key found; returning key')
-        return data["gcs_creds_location"]
-    else:
-        print('Key not found; file should be following\n\t {"gcs_creds_location" : "your_file_location"}')
-        return "-1"
+    return location
 
 @task
 def upload_all_to_bucket(dir_file, blob_name, bucket_name, csv_name, gcs_creds_location):
@@ -53,8 +46,6 @@ def list_files_recursive(path):
     :return list_: File List and Its Absolute Paths
     """
 
-    import os
-
     files = []
 
     # r = root, d = directories, f = files
@@ -69,7 +60,7 @@ def list_files_recursive(path):
     return files
 
 @flow
-def push_from_local(path):
+def push_from_local(path, api_key):
     lst = list_files_recursive(path)
     print(len(lst))
     for l in lst:
@@ -95,8 +86,8 @@ def push_from_local(path):
         )
         # print(out)
 
-
-if __name__=="__main__":
+@flow
+def push_to_gcs_flow():
     api_key = get_gcs_cred_location()
     
     if api_key == "-1":
@@ -106,8 +97,11 @@ if __name__=="__main__":
 
     historic_path = './data/price_n_volume/historic'
 
-    push_from_local(path = historic_path)
+    push_from_local(path = historic_path, api_key= api_key)
 
     recent_path = './data/price_n_volume/recent'
 
-    push_from_local(path = recent_path)
+    push_from_local(path = recent_path, api_key= api_key)
+
+if __name__=="__main__":
+    push_to_gcs_flow()

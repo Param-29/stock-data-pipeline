@@ -1,4 +1,6 @@
 from google.cloud import bigquery
+import os
+import json
 import pyspark
 from pyspark.sql import SparkSession, types
 from pyspark.conf import SparkConf
@@ -6,6 +8,15 @@ from pyspark.context import SparkContext
 from pyspark.sql.functions import udf, col
 from pyspark.sql import functions as F, Window
 from prefect import flow, task
+
+@task
+def get_gcs_project_id():
+    location = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
+    if location == None:
+        print('Key not found; set `GOOGLE_APPLICATION_CREDENTIALS` env variable in bash')
+        return "-1"
+    data = json.load(open(location))
+    return data['project_id']
 
 
 def setup_for_spark():
@@ -36,31 +47,33 @@ def setup_for_spark():
     
     return client, spark
 
-@task
+# need to change to remove (TBD)
+# 1. Project name 
+# 2: dataset name 
+# 3. Table name
+@flow
 def create_bq_raw_table(client):
-    query = '''
-    CREATE OR REPLACE EXTERNAL TABLE `quick-ray-375906.price_n_volume.recent_raw_external`
-  OPTIONS (
-    format ="csv",
-    uris = ['gs://prefect-dee/data/price_n_volume/recent/*']
-    );
+    project_id = get_gcs_project_id()
+    dataset_name = 'prod_price_n_volume'
+    datalake_name = 'lake_price_n_volume'
+    query = (
+        f'    CREATE OR REPLACE EXTERNAL TABLE `{project_id}.{dataset_name}.recent_raw_external`\n'
+        '  OPTIONS (\n'
+        '    format ="csv",\n'
+        f'    uris = ["gs://{datalake_name}/data/price_n_volume/recent/*"]\n'
+        '    );\n'
+        '\n'
+        f'    CREATE or REPLACE TABLE `{project_id}.{dataset_name}.recent_raw`\n'
+        '    AS \n'
+        f'    SELECT * FROM `{project_id}.{dataset_name}.recent_raw_external`;\n'
 
-    CREATE or REPLACE TABLE `quick-ray-375906.price_n_volume.recent_raw`
-    AS 
-    SELECT * FROM `quick-ray-375906.price_n_volume.recent_raw_external`;
-    '''
-
+    )
+    
     # Executes the query and fetches the results
     query_job = client.query(query)
     return query_job
 
     
-
-
-
-
-# In[37]:
-
 
 def udf_if_outlier(val, avg, stddev):
     try:
@@ -120,7 +133,7 @@ def window_create(df, on_column ,lst_number_of_days, both=1):
         # ).groupBy('company', outlier_column).count().orderBy(col("company")).show()
     return df
 
-@task
+@flow
 def create_bq_outlier_table(spark):
     df = spark.read \
       .format("bigquery") \
@@ -131,23 +144,21 @@ def create_bq_outlier_table(spark):
     return df
 
 
-@task
+@flow
 def write_bq_outlier_table(spark, dataset = 'prod_price_n_volume', table = 'recent_outliers'):
     df = create_bq_outlier_table(spark)
     print(f'number of records in dataset: {df.count()}')
     print(f'Writing to {dataset} with table {table}')
     df.write \
-      .format("bigquery") \
+      .format("bigquery").mode("overwrite") \
       .option("writeMethod", "direct") \
       .save(f"{dataset}.{table}")
     
-
-
-
-
-if __name__=="__main__":
+@flow
+def add_to_bigquery():
     client, spark = setup_for_spark()
     create_bq_raw_table(client)
     write_bq_outlier_table(spark)
 
-
+if __name__=="__main__":
+    add_to_bigquery()
