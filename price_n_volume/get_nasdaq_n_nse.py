@@ -108,6 +108,37 @@ def write_data_to_file(df, company):
             df_date.to_csv(date_csv_path, mode='a', header=hdr, index=False)
 
 
+def write_last_n_days_data(df, company, last_n_days = 5):
+    # from full dataframe sort for last n days 
+    # in each file, check if entry of same date, company is present,if yes, do not append 
+    # else append
+    df_write = df.head(last_n_days)
+    print(f'df_write.shape = {df_write.shape}')
+    for date_ in df_write.date.unique():
+        df_date = df_write[df_write['date'] == date_]
+        path_recent = f'data/price_n_volume/recent/'
+        isExist = os.path.exists(path_recent)
+        if not isExist:
+            os.makedirs(path_recent)
+            print(f"The new directory is created! {path_recent}")
+        
+        date_csv_path = f'{path_recent}/{date_}.csv'
+        hdr = False  if os.path.isfile(date_csv_path) else True
+        print(f'date_csv_path = {date_csv_path}, hdr = {hdr}')
+        if hdr:
+            df_date.to_csv(date_csv_path, mode='a', header=hdr, index=False)
+        else:
+            df_read = pd.read_csv(date_csv_path)
+            df_company = df_read[df_read['company'] == company]
+            print(df_company, type(df_company))
+            if df_company.empty:
+                df_date.to_csv(date_csv_path, mode='a', header=hdr, index=False)
+                print(f'Writing for {company} in {date_csv_path}')
+            else:
+                print(f'Not writing for {company} in {date_csv_path} to avoid duplicate')
+    
+    pass    
+
 if __name__=="__main__":
     api_key = get_api_key()
     
@@ -127,11 +158,17 @@ if __name__=="__main__":
     }
     
     # symbol = 'AMD'
-    filename = 'nasdaq100.log'
+    filename = 'nse.txt'
     temp = open(filename,'r').read().split('\n')
     print(f'All files listed in file: {temp}')
 
-    for i in range(10):
+    if TESTING == False:
+        _range = len(temp)
+    else:
+        _range = 10
+
+    print(f'Amount of data to get from api: {_range}')
+    for i in range(_range):
         symbol = temp[i]
 
         df_all = get_and_preprocess(symbol, api_key, colmn_rename)
