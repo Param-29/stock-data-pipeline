@@ -9,7 +9,9 @@ import os
 from google.cloud import storage
 import json 
 import glob
+from prefect import flow, task
 
+@task
 def get_gcs_cred_location():
     f = open('../api_key.json')
     try:
@@ -25,7 +27,7 @@ def get_gcs_cred_location():
         print('Key not found; file should be following\n\t {"gcs_creds_location" : "your_file_location"}')
         return "-1"
 
-
+@task
 def upload_all_to_bucket(dir_file, blob_name, bucket_name, csv_name, gcs_creds_location):
     """ Upload data to a bucket"""
      
@@ -44,6 +46,7 @@ def upload_all_to_bucket(dir_file, blob_name, bucket_name, csv_name, gcs_creds_l
     #returns a public url
     return blob.public_url
 
+@task
 def list_files_recursive(path):
     """
     Function that receives as a parameter a directory path
@@ -65,7 +68,7 @@ def list_files_recursive(path):
 
     return files
 
-
+@flow
 def push_from_local(path):
     lst = list_files_recursive(path)
     print(len(lst))
@@ -86,11 +89,11 @@ def push_from_local(path):
         out = upload_all_to_bucket(
             dir_file = dir_file,
             blob_name=blob_name, 
-            bucket_name="prefect-dee",
+            bucket_name="lake_price_n_volume",
             csv_name = csv_name,
             gcs_creds_location = api_key      
         )
-        print(out)
+        # print(out)
 
 
 if __name__=="__main__":

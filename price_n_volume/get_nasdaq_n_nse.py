@@ -8,8 +8,8 @@ from prefect import flow, task
 # number_of_rows = 400
 
 
-TESTING = False
-
+TESTING = True
+@task
 def get_api_key():
     f = open('../api_key.json')
     try:
@@ -25,7 +25,7 @@ def get_api_key():
         print('Key not found; file should be following\n\t {"alphavantage" : "your_key"}')
         return "-1"
 
-
+@task
 def get_and_preprocess(symbol, api_key, colmn_rename):
     # Construct the API endpoint URL
     url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={symbol}&outputsize=full&apikey={api_key}'
@@ -69,6 +69,7 @@ def get_and_preprocess(symbol, api_key, colmn_rename):
 
     return df_tmp
 
+@task
 def write_data_to_file(df, company):
 
     min_year = min(df.date).year
@@ -139,7 +140,8 @@ def write_last_n_days_data(df, company, last_n_days = 5):
     
     pass    
 
-if __name__=="__main__":
+@flow
+def initialize_flow():
     api_key = get_api_key()
     
     if api_key == "-1":
@@ -177,4 +179,6 @@ if __name__=="__main__":
             write_data_to_file(df_all, symbol)
 
 
+if __name__=="__main__":
+    initialize_flow()
 
