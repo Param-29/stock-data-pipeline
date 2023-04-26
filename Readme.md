@@ -58,6 +58,7 @@ Following are list of dependencies
    prefect orion start
    ```
 4. [DEMO] Push data available in GCS bucket using 
+   1. This expects `import pyspark` to work 
 
    ```shell 
      export GOOGLE_APPLICATION_CREDENTIALS="<path_to_gcp_creds>.json"
