@@ -160,7 +160,7 @@ def initialize_flow():
     }
     
     # symbol = 'AMD'
-    filename = 'nse.txt'
+    filename = 'nasdaq100.log'
     temp = open(filename,'r').read().split('\n')
     print(f'All files listed in file: {temp}')
 

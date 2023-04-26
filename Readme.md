@@ -65,7 +65,18 @@ Following are list of dependencies
      python bq_pipeline.py # <-- This would create 'recent_outliers' table in your dataset
    ```
 
+5. [COMPLETE_PROJECT]  
+   ```
+   echo '{"alphavantage": "B9367TAXK4ZMYQVI"}' > api_key.json
+   python get_nasdaq_n_nse.py # this would generate a data folder.
+   export GOOGLE_APPLICATION_CREDENTIALS="<path_to_gcp_creds>.json"
+   python push_to_gcs.py # data folder pushed to gcs 
+   python bq_pipeline.py # gcs to bq
+   ``` 
+6. [DOCKERFILE] TBD
 
+7. [DATA_ANALYTICS BOARD PDF](Price_n_Volume_outlier.pdf)
+   1. As GCS credits expired, live dashboard cannot be shared
 
 # References
 

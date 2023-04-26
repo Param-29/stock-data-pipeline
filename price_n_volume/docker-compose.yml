@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  price_n_volume:
+    build: .
+    ports:
+      - "4040:4040"
+      - "4200:4200"
+    image: "python:3.9.1"

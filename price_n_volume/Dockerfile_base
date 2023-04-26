@@ -1,0 +1,23 @@
+FROM python:3.9.1
+
+RUN apt-get install wget
+RUN pip install --upgrade pip
+RUN apt-get update
+WORKDIR /app
+COPY * ./
+RUN apt-get install tree 
+RUN echo $PWD
+RUN find . -name *jdk-11.0.2
+RUN pip install -r requirements.txt
+RUN export JAVA_HOME="/app/week-4-installations/jdk-11.0.2"
+ENV JAVA_HOME /app/week-4-installations/jdk-11.0.2/
+RUN ls ${JAVA_HOME}
+RUN export PATH="${JAVA_HOME}/bin:${PATH}"
+RUN java --version
+RUN export SPARK_HOME="/app/week-4-installations/spark-3.3.2-bin-hadoop3"
+ENV JAVA_HOME /app/week-4-installations/spark-3.3.2-bin-hadoop3
+RUN export PATH="${SPARK_HOME}/bin:${PATH}"
+RUN export PYTHONPATH="${SPARK_HOME}/python/:$PYTHONPATH"
+RUN export PYTHONPATH="${SPARK_HOME}/python/lib/py4j-0.10.9-src.zip:$PYTHONPATH"
+
+ENTRYPOINT [ "python", "complete_flow.py" ]
