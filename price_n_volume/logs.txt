@@ -1,0 +1,351 @@
+Sending build context to Docker daemon   1000MB
+Step 1/18 : FROM python:3.9.1
+ ---> 2a93c239d591
+Step 2/18 : RUN apt-get install wget
+ ---> Using cache
+ ---> dca082340290
+Step 3/18 : RUN pip install --upgrade pip
+ ---> Using cache
+ ---> aad6bbe7616b
+Step 4/18 : RUN apt-get update
+ ---> Using cache
+ ---> 0a918ac94819
+Step 5/18 : WORKDIR /app
+ ---> Using cache
+ ---> 0ac62f7f8f73
+Step 6/18 : COPY * ./
+ ---> 83510efbaf1e
+Step 7/18 : RUN apt-get install tree
+ ---> Running in 930b80b17d38
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following NEW packages will be installed:
+  tree
+0 upgraded, 1 newly installed, 0 to remove and 160 not upgraded.
+Need to get 49.3 kB of archives.
+After this operation, 117 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian buster/main amd64 tree amd64 1.8.0-1 [49.3 kB]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 49.3 kB in 1s (76.1 kB/s)
+Selecting previously unselected package tree.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 24611 files and directories currently installed.)
+Preparing to unpack .../tree_1.8.0-1_amd64.deb ...
+Unpacking tree (1.8.0-1) ...
+Setting up tree (1.8.0-1) ...
+Removing intermediate container 930b80b17d38
+ ---> 30b4db8e7de7
+Step 8/18 : RUN echo $PWD
+ ---> Running in 006b9af930bb
+/app
+Removing intermediate container 006b9af930bb
+ ---> 62b4fbcb4e73
+Step 9/18 : RUN find . -name *jdk-11.0.2
+ ---> Running in f7182bf0d598
+./week-4-installations/jdk-11.0.2
+Removing intermediate container f7182bf0d598
+ ---> e5e862ff1337
+Step 10/18 : RUN pip install -r requirements.txt
+ ---> Running in 4d9f3cc06f10
+Collecting prefect==2.7.10 (from -r requirements.txt (line 1))
+  Downloading prefect-2.7.10-py3-none-any.whl (1.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 5.3 MB/s eta 0:00:00
+Collecting prefect-gcp==0.2.4 (from -r requirements.txt (line 2))
+  Downloading prefect_gcp-0.2.4-py3-none-any.whl (40 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.5/40.5 kB 4.6 MB/s eta 0:00:00
+Collecting prefect-sqlalchemy==0.2.2 (from -r requirements.txt (line 3))
+  Downloading prefect_sqlalchemy-0.2.2-py3-none-any.whl (18 kB)
+Collecting google-api-core==2.11.0 (from -r requirements.txt (line 4))
+  Downloading google_api_core-2.11.0-py3-none-any.whl (120 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 120.3/120.3 kB 5.4 MB/s eta 0:00:00
+Collecting google-api-python-client==2.75.0 (from -r requirements.txt (line 5))
+  Downloading google_api_python_client-2.75.0-py2.py3-none-any.whl (11.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.0/11.0 MB 4.9 MB/s eta 0:00:00
+Collecting google-auth==2.16.0 (from -r requirements.txt (line 6))
+  Downloading google_auth-2.16.0-py2.py3-none-any.whl (177 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 177.8/177.8 kB 1.4 MB/s eta 0:00:00
+Collecting google-auth-httplib2==0.1.0 (from -r requirements.txt (line 7))
+  Downloading google_auth_httplib2-0.1.0-py2.py3-none-any.whl (9.3 kB)
+Collecting google-auth-oauthlib==0.8.0 (from -r requirements.txt (line 8))
+  Downloading google_auth_oauthlib-0.8.0-py2.py3-none-any.whl (19 kB)
+Collecting google-cloud-bigquery==3.4.2 (from -r requirements.txt (line 9))
+  Downloading google_cloud_bigquery-3.4.2-py2.py3-none-any.whl (215 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 215.1/215.1 kB 2.2 MB/s eta 0:00:00
+Collecting google-cloud-bigquery-storage==2.18.1 (from -r requirements.txt (line 10))
+  Downloading google_cloud_bigquery_storage-2.18.1-py2.py3-none-any.whl (189 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 189.8/189.8 kB 1.5 MB/s eta 0:00:00
+Collecting google-cloud-core==2.3.2 (from -r requirements.txt (line 11))
+  Downloading google_cloud_core-2.3.2-py2.py3-none-any.whl (29 kB)
+Collecting google-cloud-dataproc==5.4.0 (from -r requirements.txt (line 12))
+  Downloading google_cloud_dataproc-5.4.0-py2.py3-none-any.whl (307 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 307.3/307.3 kB 1.4 MB/s eta 0:00:00
+Collecting google-cloud-storage==2.7.0 (from -r requirements.txt (line 13))
+  Downloading google_cloud_storage-2.7.0-py2.py3-none-any.whl (110 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 110.2/110.2 kB 1.2 MB/s eta 0:00:00
+Collecting google-crc32c==1.5.0 (from -r requirements.txt (line 14))
+  Downloading google_crc32c-1.5.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (32 kB)
+Collecting google-resumable-media==2.4.1 (from -r requirements.txt (line 15))
+  Downloading google_resumable_media-2.4.1-py2.py3-none-any.whl (77 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 77.7/77.7 kB 866.5 kB/s eta 0:00:00
+Collecting googleapis-common-protos==1.58.0 (from -r requirements.txt (line 16))
+  Downloading googleapis_common_protos-1.58.0-py2.py3-none-any.whl (223 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 223.0/223.0 kB 1.5 MB/s eta 0:00:00
+Collecting fastapi==0.89.1 (from -r requirements.txt (line 17))
+  Downloading fastapi-0.89.1-py3-none-any.whl (55 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 55.8/55.8 kB 586.8 kB/s eta 0:00:00
+Collecting pandas==1.5.2 (from -r requirements.txt (line 18))
+  Downloading pandas-1.5.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (12.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.2/12.2 MB 3.0 MB/s eta 0:00:00
+Collecting aiosqlite>=0.17.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading aiosqlite-0.19.0-py3-none-any.whl (15 kB)
+Collecting alembic>=1.7.5 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading alembic-1.10.4-py3-none-any.whl (212 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 212.9/212.9 kB 742.0 kB/s eta 0:00:00
+Collecting anyio>=3.4.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading anyio-3.6.2-py3-none-any.whl (80 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80.6/80.6 kB 935.1 kB/s eta 0:00:00
+Collecting apprise>=1.1.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading apprise-1.3.0-py2.py3-none-any.whl (1.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 3.3 MB/s eta 0:00:00
+Collecting asgi-lifespan>=1.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading asgi_lifespan-2.1.0-py3-none-any.whl (10 kB)
+Collecting asyncpg>=0.23 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading asyncpg-0.27.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_28_x86_64.whl (2.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.7/2.7 MB 3.2 MB/s eta 0:00:00
+Collecting click<8.2,>=8.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading click-8.1.3-py3-none-any.whl (96 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 96.6/96.6 kB 5.3 MB/s eta 0:00:00
+Collecting cloudpickle>=2.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading cloudpickle-2.2.1-py3-none-any.whl (25 kB)
+Collecting coolname>=1.0.4 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading coolname-2.2.0-py2.py3-none-any.whl (37 kB)
+Collecting croniter>=1.0.12 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading croniter-1.3.14-py2.py3-none-any.whl (18 kB)
+Collecting cryptography>=36.0.1 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading cryptography-40.0.2-cp36-abi3-manylinux_2_28_x86_64.whl (3.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.7/3.7 MB 5.4 MB/s eta 0:00:00
+Collecting dateparser>=1.1.1 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading dateparser-1.1.8-py2.py3-none-any.whl (293 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 293.8/293.8 kB 6.3 MB/s eta 0:00:00
+Collecting docker>=4.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading docker-6.0.1-py3-none-any.whl (147 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 147.5/147.5 kB 6.5 MB/s eta 0:00:00
+Collecting fsspec>=2022.5.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading fsspec-2023.4.0-py3-none-any.whl (153 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 154.0/154.0 kB 3.7 MB/s eta 0:00:00
+Collecting griffe>=0.20.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading griffe-0.27.1-py3-none-any.whl (88 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 88.6/88.6 kB 1.1 MB/s eta 0:00:00
+Collecting httpx[http2]!=0.23.2,>=0.23 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading httpx-0.24.0-py3-none-any.whl (75 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 75.3/75.3 kB 930.6 kB/s eta 0:00:00
+Collecting jinja2>=3.0.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading Jinja2-3.1.2-py3-none-any.whl (133 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.1/133.1 kB 1.5 MB/s eta 0:00:00
+Collecting jsonpatch>=1.32 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading jsonpatch-1.32-py2.py3-none-any.whl (12 kB)
+Collecting jsonschema<5.0.0,>=3.2.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading jsonschema-4.17.3-py3-none-any.whl (90 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.4/90.4 kB 1.1 MB/s eta 0:00:00
+Collecting kubernetes>=24.2.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading kubernetes-26.1.0-py2.py3-none-any.whl (1.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 3.6 MB/s eta 0:00:00
+Collecting orjson>=3.7 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading orjson-3.8.10-cp39-cp39-manylinux_2_28_x86_64.whl (140 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 140.5/140.5 kB 1.2 MB/s eta 0:00:00
+Collecting packaging>=21.3 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading packaging-23.1-py3-none-any.whl (48 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.9/48.9 kB 540.7 kB/s eta 0:00:00
+Collecting pathspec>=0.8.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading pathspec-0.11.1-py3-none-any.whl (29 kB)
+Collecting pendulum>=2.1.2 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading pendulum-2.1.2-cp39-cp39-manylinux1_x86_64.whl (155 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 155.3/155.3 kB 1.6 MB/s eta 0:00:00
+Collecting pydantic>=1.10.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading pydantic-1.10.7-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 4.6 MB/s eta 0:00:00
+Collecting python-slugify>=5.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading python_slugify-8.0.1-py2.py3-none-any.whl (9.7 kB)
+Collecting pytz>=2021.1 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading pytz-2023.3-py2.py3-none-any.whl (502 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 502.3/502.3 kB 5.3 MB/s eta 0:00:00
+Collecting pyyaml>=5.4.1 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading PyYAML-6.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (661 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 661.8/661.8 kB 2.9 MB/s eta 0:00:00
+Collecting readchar>=4.0.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading readchar-4.0.5-py3-none-any.whl (8.5 kB)
+Collecting rich>=11.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading rich-13.3.4-py3-none-any.whl (238 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 238.7/238.7 kB 1.8 MB/s eta 0:00:00
+Collecting sqlalchemy[asyncio]!=1.4.33,<2.0,>=1.4.22 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading SQLAlchemy-1.4.47-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 5.6 MB/s eta 0:00:00
+Collecting toml>=0.10.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading toml-0.10.2-py2.py3-none-any.whl (16 kB)
+Collecting typer>=0.4.2 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading typer-0.7.0-py3-none-any.whl (38 kB)
+Collecting typing-extensions>=4.1.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading typing_extensions-4.5.0-py3-none-any.whl (27 kB)
+Collecting uvicorn>=0.14.0 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading uvicorn-0.21.1-py3-none-any.whl (57 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.8/57.8 kB 10.9 MB/s eta 0:00:00
+Collecting importlib-metadata>=4.4 (from prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading importlib_metadata-6.6.0-py3-none-any.whl (22 kB)
+Collecting sqlalchemy>=1.4.31 (from prefect-sqlalchemy==0.2.2->-r requirements.txt (line 3))
+  Downloading SQLAlchemy-2.0.10-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.8/2.8 MB 4.1 MB/s eta 0:00:00
+Collecting protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.19.5 (from google-api-core==2.11.0->-r requirements.txt (line 4))
+  Downloading protobuf-4.22.3-cp37-abi3-manylinux2014_x86_64.whl (302 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 302.4/302.4 kB 1.7 MB/s eta 0:00:00
+Collecting requests<3.0.0dev,>=2.18.0 (from google-api-core==2.11.0->-r requirements.txt (line 4))
+  Downloading requests-2.29.0-py3-none-any.whl (62 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.5/62.5 kB 732.0 kB/s eta 0:00:00
+Collecting httplib2<1dev,>=0.15.0 (from google-api-python-client==2.75.0->-r requirements.txt (line 5))
+  Downloading httplib2-0.22.0-py3-none-any.whl (96 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 96.9/96.9 kB 944.7 kB/s eta 0:00:00
+Collecting uritemplate<5,>=3.0.1 (from google-api-python-client==2.75.0->-r requirements.txt (line 5))
+  Downloading uritemplate-4.1.1-py2.py3-none-any.whl (10 kB)
+Collecting cachetools<6.0,>=2.0.0 (from google-auth==2.16.0->-r requirements.txt (line 6))
+  Downloading cachetools-5.3.0-py3-none-any.whl (9.3 kB)
+Collecting pyasn1-modules>=0.2.1 (from google-auth==2.16.0->-r requirements.txt (line 6))
+  Downloading pyasn1_modules-0.3.0-py2.py3-none-any.whl (181 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 181.3/181.3 kB 1.1 MB/s eta 0:00:00
+Collecting six>=1.9.0 (from google-auth==2.16.0->-r requirements.txt (line 6))
+  Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
+Collecting rsa<5,>=3.1.4 (from google-auth==2.16.0->-r requirements.txt (line 6))
+  Downloading rsa-4.9-py3-none-any.whl (34 kB)
+Collecting requests-oauthlib>=0.7.0 (from google-auth-oauthlib==0.8.0->-r requirements.txt (line 8))
+  Downloading requests_oauthlib-1.3.1-py2.py3-none-any.whl (23 kB)
+Collecting grpcio<2.0dev,>=1.47.0 (from google-cloud-bigquery==3.4.2->-r requirements.txt (line 9))
+  Downloading grpcio-1.54.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (5.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.1/5.1 MB 5.3 MB/s eta 0:00:00
+Collecting proto-plus<2.0.0dev,>=1.15.0 (from google-cloud-bigquery==3.4.2->-r requirements.txt (line 9))
+  Downloading proto_plus-1.22.2-py3-none-any.whl (47 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 47.9/47.9 kB 3.1 MB/s eta 0:00:00
+Collecting python-dateutil<3.0dev,>=2.7.2 (from google-cloud-bigquery==3.4.2->-r requirements.txt (line 9))
+  Downloading python_dateutil-2.8.2-py2.py3-none-any.whl (247 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 247.7/247.7 kB 5.6 MB/s eta 0:00:00
+Collecting grpc-google-iam-v1<1.0.0dev,>=0.12.4 (from google-cloud-dataproc==5.4.0->-r requirements.txt (line 12))
+  Downloading grpc_google_iam_v1-0.12.6-py2.py3-none-any.whl (26 kB)
+Collecting starlette==0.22.0 (from fastapi==0.89.1->-r requirements.txt (line 17))
+  Downloading starlette-0.22.0-py3-none-any.whl (64 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 64.3/64.3 kB 799.2 kB/s eta 0:00:00
+Collecting numpy>=1.20.3 (from pandas==1.5.2->-r requirements.txt (line 18))
+  Downloading numpy-1.24.3-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (17.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.3/17.3 MB 5.3 MB/s eta 0:00:00
+Collecting Mako (from alembic>=1.7.5->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading Mako-1.2.4-py3-none-any.whl (78 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.7/78.7 kB 952.8 kB/s eta 0:00:00
+Collecting idna>=2.8 (from anyio>=3.4.0->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading idna-3.4-py3-none-any.whl (61 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.5/61.5 kB 731.4 kB/s eta 0:00:00
+Collecting sniffio>=1.1 (from anyio>=3.4.0->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading sniffio-1.3.0-py3-none-any.whl (10 kB)
+Collecting certifi (from apprise>=1.1.0->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading certifi-2022.12.7-py3-none-any.whl (155 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 155.3/155.3 kB 1.7 MB/s eta 0:00:00
+Collecting markdown (from apprise>=1.1.0->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading Markdown-3.4.3-py3-none-any.whl (93 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 93.9/93.9 kB 1.2 MB/s eta 0:00:00
+Collecting cffi>=1.12 (from cryptography>=36.0.1->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading cffi-1.15.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (441 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 441.2/441.2 kB 2.6 MB/s eta 0:00:00
+Collecting regex!=2019.02.19,!=2021.8.27 (from dateparser>=1.1.1->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading regex-2023.3.23-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (768 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 769.0/769.0 kB 3.1 MB/s eta 0:00:00
+Collecting tzlocal (from dateparser>=1.1.1->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading tzlocal-4.3-py3-none-any.whl (20 kB)
+Collecting urllib3>=1.26.0 (from docker>=4.0->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading urllib3-1.26.15-py2.py3-none-any.whl (140 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 140.9/140.9 kB 1.5 MB/s eta 0:00:00
+Collecting websocket-client>=0.32.0 (from docker>=4.0->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading websocket_client-1.5.1-py3-none-any.whl (55 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 55.9/55.9 kB 660.3 kB/s eta 0:00:00
+Collecting grpcio-status<2.0dev,>=1.33.2 (from google-api-core==2.11.0->-r requirements.txt (line 4))
+  Downloading grpcio_status-1.54.0-py3-none-any.whl (5.1 kB)
+Collecting colorama>=0.4 (from griffe>=0.20.0->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Collecting googleapis-common-protos[grpc]<2.0.0dev,>=1.56.0 (from grpc-google-iam-v1<1.0.0dev,>=0.12.4->google-cloud-dataproc==5.4.0->-r requirements.txt (line 12))
+  Downloading googleapis_common_protos-1.59.0-py2.py3-none-any.whl (223 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 223.6/223.6 kB 1.6 MB/s eta 0:00:00
+Collecting pyparsing!=3.0.0,!=3.0.1,!=3.0.2,!=3.0.3,<4,>=2.4.2 (from httplib2<1dev,>=0.15.0->google-api-python-client==2.75.0->-r requirements.txt (line 5))
+  Downloading pyparsing-3.0.9-py3-none-any.whl (98 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.3/98.3 kB 1.1 MB/s eta 0:00:00
+Collecting httpcore<0.18.0,>=0.15.0 (from httpx[http2]!=0.23.2,>=0.23->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading httpcore-0.17.0-py3-none-any.whl (70 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 70.6/70.6 kB 798.2 kB/s eta 0:00:00
+Collecting h2<5,>=3 (from httpx[http2]!=0.23.2,>=0.23->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading h2-4.1.0-py3-none-any.whl (57 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.5/57.5 kB 659.5 kB/s eta 0:00:00
+Collecting zipp>=0.5 (from importlib-metadata>=4.4->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading zipp-3.15.0-py3-none-any.whl (6.8 kB)
+Collecting MarkupSafe>=2.0 (from jinja2>=3.0.0->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading MarkupSafe-2.1.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (25 kB)
+Collecting jsonpointer>=1.9 (from jsonpatch>=1.32->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading jsonpointer-2.3-py2.py3-none-any.whl (7.8 kB)
+Collecting attrs>=17.4.0 (from jsonschema<5.0.0,>=3.2.0->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading attrs-23.1.0-py3-none-any.whl (61 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.2/61.2 kB 595.8 kB/s eta 0:00:00
+Collecting pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 (from jsonschema<5.0.0,>=3.2.0->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading pyrsistent-0.19.3-py3-none-any.whl (57 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.5/57.5 kB 551.4 kB/s eta 0:00:00
+Requirement already satisfied: setuptools>=21.0.0 in /usr/local/lib/python3.9/site-packages (from kubernetes>=24.2.0->prefect==2.7.10->-r requirements.txt (line 1)) (53.0.0)
+Collecting pytzdata>=2020.1 (from pendulum>=2.1.2->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading pytzdata-2020.1-py2.py3-none-any.whl (489 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 490.0/490.0 kB 2.6 MB/s eta 0:00:00
+Collecting pyasn1<0.6.0,>=0.4.6 (from pyasn1-modules>=0.2.1->google-auth==2.16.0->-r requirements.txt (line 6))
+  Downloading pyasn1-0.5.0-py2.py3-none-any.whl (83 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 83.9/83.9 kB 1.0 MB/s eta 0:00:00
+Collecting text-unidecode>=1.3 (from python-slugify>=5.0->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading text_unidecode-1.3-py2.py3-none-any.whl (78 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.2/78.2 kB 907.6 kB/s eta 0:00:00
+Collecting charset-normalizer<4,>=2 (from requests<3.0.0dev,>=2.18.0->google-api-core==2.11.0->-r requirements.txt (line 4))
+  Downloading charset_normalizer-3.1.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (199 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 199.2/199.2 kB 1.4 MB/s eta 0:00:00
+Collecting oauthlib>=3.0.0 (from requests-oauthlib>=0.7.0->google-auth-oauthlib==0.8.0->-r requirements.txt (line 8))
+  Downloading oauthlib-3.2.2-py3-none-any.whl (151 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 151.7/151.7 kB 1.2 MB/s eta 0:00:00
+Collecting markdown-it-py<3.0.0,>=2.2.0 (from rich>=11.0->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading markdown_it_py-2.2.0-py3-none-any.whl (84 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 84.5/84.5 kB 944.9 kB/s eta 0:00:00
+Collecting pygments<3.0.0,>=2.13.0 (from rich>=11.0->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading Pygments-2.15.1-py3-none-any.whl (1.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 3.3 MB/s eta 0:00:00
+Collecting greenlet!=0.4.17 (from sqlalchemy>=1.4.31->prefect-sqlalchemy==0.2.2->-r requirements.txt (line 3))
+  Downloading greenlet-2.0.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (610 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 610.9/610.9 kB 2.7 MB/s eta 0:00:00
+Collecting h11>=0.8 (from uvicorn>=0.14.0->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading h11-0.14.0-py3-none-any.whl (58 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.3/58.3 kB 3.5 MB/s eta 0:00:00
+Collecting pycparser (from cffi>=1.12->cryptography>=36.0.1->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading pycparser-2.21-py2.py3-none-any.whl (118 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.7/118.7 kB 3.8 MB/s eta 0:00:00
+INFO: pip is looking at multiple versions of googleapis-common-protos[grpc] to determine which version is compatible with other requirements. This could take a while.
+Collecting hyperframe<7,>=6.0 (from h2<5,>=3->httpx[http2]!=0.23.2,>=0.23->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading hyperframe-6.0.1-py3-none-any.whl (12 kB)
+Collecting hpack<5,>=4.0 (from h2<5,>=3->httpx[http2]!=0.23.2,>=0.23->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading hpack-4.0.0-py3-none-any.whl (32 kB)
+Collecting mdurl~=0.1 (from markdown-it-py<3.0.0,>=2.2.0->rich>=11.0->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Collecting pytz-deprecation-shim (from tzlocal->dateparser>=1.1.1->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading pytz_deprecation_shim-0.1.0.post0-py2.py3-none-any.whl (15 kB)
+Collecting tzdata (from pytz-deprecation-shim->tzlocal->dateparser>=1.1.1->prefect==2.7.10->-r requirements.txt (line 1))
+  Downloading tzdata-2023.3-py2.py3-none-any.whl (341 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 341.8/341.8 kB 2.1 MB/s eta 0:00:00
+Installing collected packages: text-unidecode, pytz, coolname, zipp, websocket-client, urllib3, uritemplate, tzdata, typing-extensions, toml, sniffio, six, regex, readchar, pyyaml, pytzdata, python-slugify, pyrsistent, pyparsing, pygments, pycparser, pyasn1, protobuf, pathspec, packaging, orjson, oauthlib, numpy, mdurl, MarkupSafe, jsonpointer, idna, hyperframe, hpack, h11, grpcio, greenlet, google-crc32c, fsspec, colorama, cloudpickle, click, charset-normalizer, certifi, cachetools, attrs, asyncpg, aiosqlite, uvicorn, typer, sqlalchemy, rsa, requests, pytz-deprecation-shim, python-dateutil, pydantic, pyasn1-modules, proto-plus, markdown-it-py, Mako, jsonschema, jsonpatch, jinja2, importlib-metadata, httplib2, h2, griffe, googleapis-common-protos, google-resumable-media, cffi, asgi-lifespan, anyio, tzlocal, starlette, rich, requests-oauthlib, pendulum, pandas, markdown, httpcore, grpcio-status, google-auth, docker, cryptography, croniter, alembic, kubernetes, httpx, grpc-google-iam-v1, google-auth-oauthlib, google-auth-httplib2, google-api-core, fastapi, dateparser, apprise, google-cloud-core, google-api-python-client, prefect, google-cloud-storage, google-cloud-dataproc, google-cloud-bigquery-storage, google-cloud-bigquery, prefect-sqlalchemy, prefect-gcp
+Successfully installed Mako-1.2.4 MarkupSafe-2.1.2 aiosqlite-0.19.0 alembic-1.10.4 anyio-3.6.2 apprise-1.3.0 asgi-lifespan-2.1.0 asyncpg-0.27.0 attrs-23.1.0 cachetools-5.3.0 certifi-2022.12.7 cffi-1.15.1 charset-normalizer-3.1.0 click-8.1.3 cloudpickle-2.2.1 colorama-0.4.6 coolname-2.2.0 croniter-1.3.14 cryptography-40.0.2 dateparser-1.1.8 docker-6.0.1 fastapi-0.89.1 fsspec-2023.4.0 google-api-core-2.11.0 google-api-python-client-2.75.0 google-auth-2.16.0 google-auth-httplib2-0.1.0 google-auth-oauthlib-0.8.0 google-cloud-bigquery-3.4.2 google-cloud-bigquery-storage-2.18.1 google-cloud-core-2.3.2 google-cloud-dataproc-5.4.0 google-cloud-storage-2.7.0 google-crc32c-1.5.0 google-resumable-media-2.4.1 googleapis-common-protos-1.58.0 greenlet-2.0.2 griffe-0.27.1 grpc-google-iam-v1-0.12.6 grpcio-1.54.0 grpcio-status-1.54.0 h11-0.14.0 h2-4.1.0 hpack-4.0.0 httpcore-0.17.0 httplib2-0.22.0 httpx-0.24.0 hyperframe-6.0.1 idna-3.4 importlib-metadata-6.6.0 jinja2-3.1.2 jsonpatch-1.32 jsonpointer-2.3 jsonschema-4.17.3 kubernetes-26.1.0 markdown-3.4.3 markdown-it-py-2.2.0 mdurl-0.1.2 numpy-1.24.3 oauthlib-3.2.2 orjson-3.8.10 packaging-23.1 pandas-1.5.2 pathspec-0.11.1 pendulum-2.1.2 prefect-2.7.10 prefect-gcp-0.2.4 prefect-sqlalchemy-0.2.2 proto-plus-1.22.2 protobuf-4.22.3 pyasn1-0.5.0 pyasn1-modules-0.3.0 pycparser-2.21 pydantic-1.10.7 pygments-2.15.1 pyparsing-3.0.9 pyrsistent-0.19.3 python-dateutil-2.8.2 python-slugify-8.0.1 pytz-2023.3 pytz-deprecation-shim-0.1.0.post0 pytzdata-2020.1 pyyaml-6.0 readchar-4.0.5 regex-2023.3.23 requests-2.29.0 requests-oauthlib-1.3.1 rich-13.3.4 rsa-4.9 six-1.16.0 sniffio-1.3.0 sqlalchemy-1.4.47 starlette-0.22.0 text-unidecode-1.3 toml-0.10.2 typer-0.7.0 typing-extensions-4.5.0 tzdata-2023.3 tzlocal-4.3 uritemplate-4.1.1 urllib3-1.26.15 uvicorn-0.21.1 websocket-client-1.5.1 zipp-3.15.0
+[91mWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+[0mRemoving intermediate container 4d9f3cc06f10
+ ---> d1491109d95a
+Step 11/18 : RUN export JAVA_HOME="/app/week-4-installations/jdk-11.0.2"
+ ---> Running in 578581f15cf3
+Removing intermediate container 578581f15cf3
+ ---> de27778b7be7
+Step 12/18 : RUN export PATH="${JAVA_HOME}/bin:${PATH}"
+ ---> Running in 15bb6b66bce9
+Removing intermediate container 15bb6b66bce9
+ ---> d8357e3be9b2
+Step 13/18 : RUN java --version
+ ---> Running in 6f7665190028
+[91m/bin/sh: 1: java: not found
+[0m

@@ -19,7 +19,7 @@ For DE-course work; Project
 Souce: experiments/POC_MODEL.ipynb
 
 # Project design
-[TBD]
+![Data-pipeline](data-pipeline.png)
 
 # Steps to Reproduce and test this repo
 
@@ -44,9 +44,9 @@ Following are list of dependencies
    ```
 
    ```bash
-   $ terraform init # <-- Enter Google Project ID whenever quried
-   $ terraform plan # <-- Enter Google Project ID whenever quried
-   $ terraform apply # <-- Enter Google Project ID whenever **quried**
+   $ terraform init # <-- Enter Google Project ID whenever requried
+   $ terraform plan # <-- Enter Google Project ID whenever requried
+   $ terraform apply # <-- Enter Google Project ID whenever **requried**
    ```
 
    This would create
